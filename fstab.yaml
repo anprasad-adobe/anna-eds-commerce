@@ -1,5 +1,7 @@
 mountpoints:
-  /: https://content.da.live/anprasad-adobe/anna-eds-commerce/
+  /:
+    url: https://content.da.live/anprasad-adobe/anna-eds-commerce/
+    type: markup
 
 folders:
   /products/: /products/default
