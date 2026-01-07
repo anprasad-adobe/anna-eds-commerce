@@ -1,13 +1,26 @@
-import { Cart as CartModel, Customer as CustomerModel, OrderDataModel as OrderModel } from '../../data/models';
+import { Cart as CartModel, Customer as CustomerModel, ShippingMethod } from '../../data/models';
+import { Filter, Selector } from '../../types/utils';
 import { Lang } from '@dropins/tools/types/elsie/src/i18n';
 import { Initializer, Model } from '@dropins/tools/types/elsie/src/lib';
 
 export type ConfigProps = {
+    defaults?: {
+        isBillToShipping?: boolean;
+        selectedShippingMethod?: Selector<ShippingMethod>;
+    };
+    shipping?: {
+        filterOptions?: Filter<ShippingMethod>;
+    };
+    features?: {
+        b2b?: {
+            quotes?: boolean;
+            routeLogin?: () => string | void;
+        };
+    };
     langDefinitions?: Lang;
     models?: {
         CartModel?: Model<CartModel>;
         CustomerModel?: Model<CustomerModel>;
-        OrderModel?: Model<OrderModel>;
     };
 };
 export declare const initialize: Initializer<ConfigProps>;

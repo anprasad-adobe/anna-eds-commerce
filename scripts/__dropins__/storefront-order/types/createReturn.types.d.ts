@@ -1,6 +1,7 @@
 import { AttributesFormModel, OrderDataModel, OrderItemModel } from '../data/models';
 import { InLineAlertProps, TaxTypes } from '.';
 import { SlotProps } from '@dropins/tools/types/elsie/src/lib';
+import { ImageProps } from '@dropins/tools/types/elsie/src/components';
 import { RefObject } from 'preact';
 import { MutableRefObject } from 'preact/compat';
 
@@ -15,13 +16,22 @@ type onSuccessTypes = {
 export interface CreateReturnProps {
     orderData?: OrderDataModel;
     slots?: {
+        Footer: SlotProps;
         ReturnOrderItem: SlotProps;
         ReturnFormActions: SlotProps<{
             handleChangeStep: (value: StepsTypes) => void;
         }>;
+        ReturnReasonFormImage?: SlotProps<{
+            data: OrderItemModel;
+            defaultImageProps: ImageProps;
+        }>;
+        CartSummaryItemImage?: SlotProps<{
+            data: OrderItemModel;
+            defaultImageProps: ImageProps;
+        }>;
     };
     className: string;
-    onSuccess?: (response: onSuccessTypes) => void;
+    onSuccess?: (response: onSuccessTypes | {}) => void;
     onError?: (message: string) => void;
     routeReturnSuccess?: () => string;
     showConfigurableOptions?: (options: options | {}) => options;
@@ -29,7 +39,12 @@ export interface CreateReturnProps {
 export interface ReturnOrderProductListProps {
     placeholderImage: string;
     slots?: {
+        Footer: SlotProps;
         ReturnOrderItem: SlotProps;
+        CartSummaryItemImage?: SlotProps<{
+            data: OrderItemModel;
+            defaultImageProps: ImageProps;
+        }>;
     };
     itemsEligibleForReturn: OrderItemModel[];
     loading: boolean;
@@ -47,6 +62,10 @@ export interface ReturnReasonFormProps {
         ReturnFormActions: SlotProps<{
             handleChangeStep: (value: StepsTypes) => void;
         }>;
+        ReturnReasonFormImage?: SlotProps<{
+            data: OrderItemModel;
+            defaultImageProps: ImageProps;
+        }>;
     };
     formsRef: MutableRefObject<RefObject<HTMLFormElement>[]>;
     loading: boolean;
@@ -63,7 +82,7 @@ export interface ReturnOrderMessageProps {
 }
 export interface UseCreateReturn {
     orderData?: OrderDataModel;
-    onSuccess?: (response: onSuccessTypes) => void;
+    onSuccess?: (response: onSuccessTypes | {}) => void;
     onError?: (message: string) => void;
     handleSetInLineAlert: (value?: InLineAlertProps) => void;
 }

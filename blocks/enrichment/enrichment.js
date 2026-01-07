@@ -1,6 +1,5 @@
 import { readBlockConfig } from '../../scripts/aem.js';
-import { fetchIndex } from '../../scripts/scripts.js';
-import { getSkuFromUrl } from '../../scripts/commerce.js';
+import { getProductSku, fetchIndex } from '../../scripts/commerce.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 export default async function decorate(block) {
@@ -9,7 +8,7 @@ export default async function decorate(block) {
   try {
     const filters = {};
     if (type === 'product') {
-      const productSku = getSkuFromUrl();
+      const productSku = getProductSku();
       if (!productSku) {
         throw new Error('No product SKU found in URL');
       }
@@ -22,14 +21,11 @@ export default async function decorate(block) {
         throw new Error('No product list page block found');
       }
 
-      let categoryId = plpBlock.dataset?.category;
-      if (!categoryId) {
-        categoryId = readBlockConfig(plpBlock).category;
-      }
-      if (!categoryId) {
+      const category = plpBlock.dataset?.category || readBlockConfig(plpBlock).category;
+      if (!category) {
         throw new Error('No category ID found in product list page block');
       }
-      filters.categories = categoryId;
+      filters.categories = category;
     }
 
     if (position) {

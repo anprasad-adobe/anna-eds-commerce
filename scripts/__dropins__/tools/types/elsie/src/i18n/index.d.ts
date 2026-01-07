@@ -1,3 +1,11 @@
+/********************************************************************
+ *  Copyright 2024 Adobe
+ *  All Rights Reserved.
+ *
+ * NOTICE:  Adobe permits you to use, modify, and distribute this
+ * file in accordance with the terms of the Adobe license agreement
+ * accompanying it.
+ *******************************************************************/
 export type Lang = 'en_US';
 export declare const definition: {
     default: {
@@ -144,6 +152,44 @@ export declare const definition: {
             InputDate: {
                 picker: string;
             };
+            Table: {
+                sortedAscending: string;
+                sortedDescending: string;
+                sortBy: string;
+            };
+            MultiSelect: {
+                selectAll: string;
+                deselectAll: string;
+                placeholder: string;
+                noResultsText: string;
+                ariaLabel: {
+                    removed: string;
+                    added: string;
+                    itemsSelected: string;
+                    itemsAdded: string;
+                    itemsRemoved: string;
+                    selectedTotal: string;
+                    noResultsFor: string;
+                    optionsAvailable: string;
+                    dropdownExpanded: string;
+                    useArrowKeys: string;
+                    removeFromSelection: string;
+                    fromSelection: string;
+                    selectedItem: string;
+                    inField: string;
+                    selectedItems: string;
+                    scrollableOptionsList: string;
+                    selectOptions: string;
+                    itemAction: string;
+                    bulkAdded: string;
+                    bulkRemoved: string;
+                    dropdownExpandedWithOptions: string;
+                    selectedItemInField: string;
+                    removeFromSelectionWithText: string;
+                    itemsSelectedDescription: string;
+                    noItemsSelected: string;
+                };
+            };
         };
     };
     en_US: {
@@ -289,6 +335,44 @@ export declare const definition: {
             };
             InputDate: {
                 picker: string;
+            };
+            Table: {
+                sortedAscending: string;
+                sortedDescending: string;
+                sortBy: string;
+            };
+            MultiSelect: {
+                selectAll: string;
+                deselectAll: string;
+                placeholder: string;
+                noResultsText: string;
+                ariaLabel: {
+                    removed: string;
+                    added: string;
+                    itemsSelected: string;
+                    itemsAdded: string;
+                    itemsRemoved: string;
+                    selectedTotal: string;
+                    noResultsFor: string;
+                    optionsAvailable: string;
+                    dropdownExpanded: string;
+                    useArrowKeys: string;
+                    removeFromSelection: string;
+                    fromSelection: string;
+                    selectedItem: string;
+                    inField: string;
+                    selectedItems: string;
+                    scrollableOptionsList: string;
+                    selectOptions: string;
+                    itemAction: string;
+                    bulkAdded: string;
+                    bulkRemoved: string;
+                    dropdownExpandedWithOptions: string;
+                    selectedItemInField: string;
+                    removeFromSelectionWithText: string;
+                    itemsSelectedDescription: string;
+                    noItemsSelected: string;
+                };
             };
         };
     };
@@ -437,6 +521,44 @@ export declare const getDefinitionByLanguage: (lang: Lang) => {
         };
         InputDate: {
             picker: string;
+        };
+        Table: {
+            sortedAscending: string;
+            sortedDescending: string;
+            sortBy: string;
+        };
+        MultiSelect: {
+            selectAll: string;
+            deselectAll: string;
+            placeholder: string;
+            noResultsText: string;
+            ariaLabel: {
+                removed: string;
+                added: string;
+                itemsSelected: string;
+                itemsAdded: string;
+                itemsRemoved: string;
+                selectedTotal: string;
+                noResultsFor: string;
+                optionsAvailable: string;
+                dropdownExpanded: string;
+                useArrowKeys: string;
+                removeFromSelection: string;
+                fromSelection: string;
+                selectedItem: string;
+                inField: string;
+                selectedItems: string;
+                scrollableOptionsList: string;
+                selectOptions: string;
+                itemAction: string;
+                bulkAdded: string;
+                bulkRemoved: string;
+                dropdownExpandedWithOptions: string;
+                selectedItemInField: string;
+                removeFromSelectionWithText: string;
+                itemsSelectedDescription: string;
+                noItemsSelected: string;
+            };
         };
     };
 };

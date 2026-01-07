@@ -12,6 +12,7 @@ export interface CartItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'tit
     totalExcludingTax?: VNode;
     sku?: VNode;
     quantity?: number;
+    quantityContent?: VNode;
     description?: VNode;
     attributes?: VNode;
     footer?: VNode;
@@ -22,6 +23,8 @@ export interface CartItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'tit
     alert?: VNode;
     discount?: VNode;
     savings?: VNode;
+    actions?: VNode;
+    removeContent?: VNode;
     loading?: boolean;
     updating?: boolean;
     onRemove?: () => void;

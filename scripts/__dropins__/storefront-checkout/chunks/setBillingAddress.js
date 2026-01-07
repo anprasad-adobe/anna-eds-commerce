@@ -1,13 +1,34 @@
-/*! Copyright 2024 Adobe
+/*! Copyright 2025 Adobe
 All Rights Reserved. */
-import{M as e,e as o}from"./errors.js";import{CHECKOUT_DATA_FRAGMENT as d}from"../fragments.js";import{a as l,d as p,b as u}from"./synchronizeCheckout.js";import{s as m}from"./store-config.js";import"./transform-store-config.js";import"./ServerErrorSignal.js";import"@dropins/tools/event-bus.js";import"@dropins/tools/lib.js";const c=`
-  mutation setBillingAddress($input: SetBillingAddressOnCartInput!) {
-    setBillingAddressOnCart(input: $input) {
+import{CHECKOUT_DATA_FRAGMENT as A,NEGOTIABLE_QUOTE_FRAGMENT as I}from"../fragments.js";import{e as g,f as p,g as c}from"./guards.js";import{t as B,e as m}from"./synchronizeCheckout.js";import{s as r,d as f,Q as C,I as o,p as a}from"./fetch-graphql.js";import"@dropins/tools/lib.js";import"@dropins/tools/event-bus.js";const Q=`
+  mutation setBillingAddress(
+    $cartId: String!
+    $billingAddress: BillingAddressInput!
+  ) {
+    setBillingAddressOnCart(
+      input: { cart_id: $cartId, billing_address: $billingAddress }
+    ) {
       cart {
         ...CHECKOUT_DATA_FRAGMENT
       }
     }
   }
 
-  ${d}
-`,b=async({address:i,customerAddressId:t,sameAsShipping:s=!1,useForShipping:n=!1})=>{const r=m.cartId;if(!r)throw new e;const a={cart_id:r,billing_address:{same_as_shipping:s,use_for_shipping:n}};if(!s&&t&&(a.billing_address.customer_address_id=t),!s&&!t){if(!i)throw new o;a.billing_address.address=l(i)}return await p({options:{variables:{input:a}},path:"setBillingAddressOnCart.cart",query:c,queueName:"cartUpdate",signalType:"cart",transformer:u,type:"mutation"})};export{c as a,b as s};
+  ${A}
+`,T=`
+  mutation setBillingAddressOnQuote(
+    $quoteId: ID!
+    $billingAddress: NegotiableQuoteBillingAddressInput!
+  ) {
+    setNegotiableQuoteBillingAddress(
+      input: { quote_uid: $quoteId, billing_address: $billingAddress }
+    ) {
+      quote {
+        ...NEGOTIABLE_QUOTE_FRAGMENT
+      }
+    }
+  }
+
+  ${I}
+`,n=(t,s,e,i,d,l)=>async u=>await f({type:"mutation",query:e,options:{variables:{[s]:t,billingAddress:d(u)}},path:l,queueName:C.Updates,transformer:i}),b=({address:t,customerAddressId:s,customerAddressUid:e,sameAsShipping:i=!1})=>{if(!s&&e)throw new o("customerAddressUid is not supported");if(!i&&!s&&!t)throw new a},E=({address:t,customerAddressId:s,customerAddressUid:e,sameAsShipping:i=!1})=>{if(!e&&s)throw new o("customerAddressId is not supported");if(!i&&!e&&!t)throw new a},N=t=>{const s=!!r.cartId,e=!!r.quoteId;s?b(t):e&&E(t)},G=async t=>(g(),N(t),await(!!r.cartId?n(r.cartId,"cartId",Q,B,p,"setBillingAddressOnCart.cart"):n(r.quoteId,"quoteId",T,m,c,"setNegotiableQuoteBillingAddress.quote"))(t));export{G as s};
+//# sourceMappingURL=setBillingAddress.js.map

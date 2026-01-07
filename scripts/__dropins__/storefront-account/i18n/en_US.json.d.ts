@@ -3,8 +3,8 @@ declare const _default: {
     "minifiedView": {
       "CustomerInformation": {
         "containerTitle": "Account settings",
-        "genderMale":"Male",
-        "genderFemale":"Female",
+        "genderMale": "Male",
+        "genderFemale": "Female",
         "changePassword": {
           "passwordValidationMessage": {
             "chartTwoSymbols": "Use characters and numbers or symbols",
@@ -54,12 +54,27 @@ declare const _default: {
         "differentAddressFormTitle": "Deliver to new address",
         "viewAllAddressesButton": "View address list",
         "differentAddressButton": "Use a different address",
+        "ariaLabelAddressPicker": "form",
         "addressCard": {
           "actionRemove": "Remove",
           "actionEdit": "Edit",
           "cardLabelShipping": "Shipping",
           "cardLabelBilling": "Billing",
-          "defaultLabelText": "DEFAULT"
+          "defaultLabelText": "DEFAULT",
+          "ariaLabel": {
+            "editButton": {
+              "default": "Edit address",
+              "shipping": "Edit default shipping address",
+              "billing": "Edit default billing address",
+              "shippingAndBilling": "Edit address set as default for both shipping and billing"
+            },
+            "removeButton": {
+              "default": "Remove address",
+              "shipping": "Remove default shipping address",
+              "billing": "Remove default billing address",
+              "shippingAndBilling": "Remove address set as default for both shipping and billing"
+            }
+          }
         },
         "removeAddressModal": {
           "title": "Remove address",
@@ -103,12 +118,27 @@ declare const _default: {
         "newAddressFormTitle": "Add address",
         "addNewAddressButton": "Create new",
         "differentAddressButton": "Use a different address",
+        "ariaLabelAddressPicker": "form",
         "addressCard": {
           "actionRemove": "Remove",
           "actionEdit": "Edit",
           "cardLabelShipping": "Shipping",
           "cardLabelBilling": "Billing",
-          "defaultLabelText": "DEFAULT"
+          "defaultLabelText": "DEFAULT",
+          "ariaLabel": {
+            "editButton": {
+              "default": "Edit address",
+              "shipping": "Edit default shipping address",
+              "billing": "Edit default billing address",
+              "shippingAndBilling": "Edit address set as default for both shipping and billing"
+            },
+            "removeButton": {
+              "default": "Remove address",
+              "shipping": "Remove default shipping address",
+              "billing": "Remove default billing address",
+              "shippingAndBilling": "Remove address set as default for both shipping and billing"
+            }
+          }
         },
         "removeAddressModal": {
           "title": "Remove address",
@@ -163,8 +193,15 @@ declare const _default: {
       "dateLengthError": "Date must be between {min} and {max}.",
       "urlError": "Please enter a valid URL, e.g., http://www.adobe.com.",
       "lengthTextError": "Text length must be between {min} and {max} characters."
+    },
+    "AddressValidation": {
+      "title": "Verify your address",
+      "subtitle": "To ensure accurate delivery, we suggest the changes highlighted below. Please choose which address you would like to use. If neither option is correct, edit your address.",
+      "suggestedAddress": "Suggested Address",
+      "originalAddress": "Original Address"
     }
   }
-};
+}
+;
 
 export default _default;

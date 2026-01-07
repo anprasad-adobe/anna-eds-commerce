@@ -1,7 +1,7 @@
 import { SlotProps } from '@dropins/tools/types/elsie/src/src/lib';
 import { AttributesFormModel, Country, FieldEnumList, RegionTransform } from '../data/models';
 
-export interface FieldsProps extends Omit<AttributesFormModel, 'options'> {
+export interface FieldsProps extends Omit<AttributesFormModel, 'options' | 'className'> {
     className?: string;
     fieldType: FieldEnumList;
     id: string;
@@ -17,11 +17,11 @@ export type FormRef = {
     isDataValid: boolean;
 };
 export interface FormProps {
-    isWaitingForResponse?: boolean;
     showSaveCheckBox?: boolean;
     saveCheckBoxAddress?: boolean;
     handleSaveCheckBoxAddress?: (event: Event) => void;
     regionOptions?: RegionTransform[] | [];
+    fieldIdPrefix?: string;
     slots?: {
         AddressFormInputs?: SlotProps<AddressFormInputsContext>;
     };
@@ -33,7 +33,7 @@ export interface FormProps {
     loading?: boolean;
     showFormLoader?: boolean;
     onSubmit?: (event: SubmitEvent, isValid: boolean) => Promise<void | null | undefined>;
-    onChange?: (values: Record<string, unknown>, inputValue: Record<string, string>, event: Event) => void;
+    onChange?: (values: Record<string, FormDataEntryValue>, inputValue: Record<string, string>, event: Event) => void;
     setInputChange?: (values: Record<string, string | number | boolean>) => void;
 }
 export interface useFormProps extends Omit<FormProps, 'children' | 'className' | 'name' | 'forwardFormRef' | 'showSaveCheckBox' | 'saveCheckBoxAddress' | 'handleSaveCheckBoxAddress'> {
@@ -48,6 +48,7 @@ export interface FormInputsProps {
     onChange?: (event: Event) => void;
     onBlur?: (event: Event) => void;
     onFocus?: (event: Event) => void;
+    fieldIdPrefix?: string;
     slots?: {
         [key: string]: SlotProps;
     };

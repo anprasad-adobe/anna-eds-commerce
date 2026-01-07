@@ -1,56 +1,37 @@
 # Edge Delivery Services + Adobe Commerce Boilerplate
+
 This project boilerplate is for Edge Delivery Services projects that integrate with Adobe Commerce.
 
 ## Documentation
-https://experienceleague.adobe.com/developer/commerce/storefront/
 
-## Environments
-- Preview: https://main--{repo}--{owner}.aem.page/
-- Live: https://main--{repo}--{owner}.aem.live/
+Before using the boilerplate, we recommend you to go through the documentation on <https://experienceleague.adobe.com/developer/commerce/storefront/> and more specifically:
 
-## Pre-requisites
+1. [Storefront Developer Tutorial](https://experienceleague.adobe.com/developer/commerce/storefront/get-started/)
+1. [AEM Docs](https://www.aem.live/docs/)
+1. [AEM Developer Tutorial](https://www.aem.live/developer/tutorial)
+1. [The Anatomy of an AEM Project](https://www.aem.live/developer/anatomy-of-a-project)
+1. [Web Performance](https://www.aem.live/developer/keeping-it-100)
+1. [Markup, Sections, Blocks, and Auto Blocking](https://www.aem.live/developer/markup-sections-blocks)
 
-Out of the box, this project template uses a pre-configured Adobe Commerce environment. If you want to use your own Adobe Commerce environment, you'll need to update the `configs.xlsx` file in your content repository to have values that match your environment.
+## Getting Started
 
-Additionally, you need to have the following modules and customizations installed on your environment:
+Use the [Site Creator Tool](https://da.live/app/adobe-commerce/storefront-tools/tools/site-creator/site-creator) to quickly spin up your own copy of code and content.
 
-1. magento/magento-extra-graphql: Commerce module required for Cart and Checkout Drop-Ins.
-1. magento/module-data-services-graphql: Commerce module with functionality necessary for adding context to events.
-1. magento/module-page-builder-product-recommendations: Commerce module required for PRex Widget
-1. magento/module-visual-product-recommendations: Commerce module required for PRex Widget
-<!-- 1. TODO: Add further prereqs.  -->
+Alternatively, you can follow our [Guide](https://experienceleague.adobe.com/developer/commerce/storefront/get-started/) for a more detailed walkthrough.
 
-## Documentation
+## Updating Drop-in dependencies
 
-Before using the boilerplate, we recommand you to go through the documentation on https://www.aem.live/docs/ and more specifically:
-1. [Developer Tutorial](https://www.aem.live/developer/tutorial)
-2. [The Anatomy of a Project](https://www.aem.live/developer/anatomy-of-a-project)
-3. [Web Performance](https://www.aem.live/developer/keeping-it-100)
-4. [Markup, Sections, Blocks, and Auto Blocking](https://www.aem.live/developer/markup-sections-blocks)
+You may need to update one of the drop-in components, or `@adobe/magento-storefront-event-collector` or `@adobe/magento-storefront-events-sdk` to a new version. Besides checking the release notes for any breaking changes, ensure you also execute the `postinstall` script so that the dependenices in your `scripts/__dropins__` directory are updated to the latest build. This should be run immediately after you update the component, for example:
 
-## Installation
-
-```sh
-npm i
+```bash
+npm install @dropins/storefront-cart@2.0. # Updates the storefront-cart dependency in node_modules/
+npm run postinstall # Copies scripts from node_modules into scripts/__dropins__
 ```
 
-## Linting
-
-```sh
-npm run lint
-```
-
-## Local development
-
-1. Create a new repository based on the `aem-boilerplate-commerce` template and add a mountpoint in the `fstab.yaml`
-1. Add the [AEM Code Sync GitHub App](https://github.com/apps/aem-code-sync) to the repository
-1. Add your Adobe Commerce SaaS configuration in the `configs.xlsx` sheet in your content repository.
-1. Install all dependencies using `npm i`.
-1. Start AEM Proxy: `npm run up` (opens your browser at `http://localhost:3000`)
-1. Open the `{repo}` directory in your favorite IDE and start coding :)
+This is a custom script which copies files out of `node_modules` and into a local directory which EDS can serve. You must manually run `postinstall` due to a design choice in `npm` which does not execute `postinstall` after you install a _specific_ package.
 
 ## Changelog
 
 Major changes are described and documented as part of pull requests and tracked via the `changelog` tag. To keep your project up to date, please follow this list:
 
-https://github.com/hlxsites/aem-boilerplate-commerce/issues?q=label%3Achangelog+is%3Aclosed
+<https://github.com/hlxsites/aem-boilerplate-commerce/issues?q=label%3Achangelog+is%3Aclosed>

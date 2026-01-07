@@ -4,6 +4,8 @@ export interface PaymentMethodProps {
     name: string;
 }
 export interface ProductProps {
+    sku: string;
+    url_key: string;
     small_image: {
         url: string;
     };
@@ -34,11 +36,15 @@ export interface DiscountProps {
 }
 export interface TotalProps {
     grand_total: AmountProps;
+    grand_total_excl_tax: AmountProps;
     subtotal: AmountProps;
     taxes: TaxProps[];
     total_tax: AmountProps;
     total_shipping: AmountProps;
     discounts: DiscountProps[];
+    total_giftcard: AmountProps;
+    subtotal_excl_tax: AmountProps;
+    subtotal_incl_tax: AmountProps;
 }
 export interface OrderProps {
     token: string;
@@ -55,6 +61,8 @@ export interface OrderProps {
     total: TotalProps;
     status: string;
     id: string;
+    payment_method?: PaymentMethodProps[];
+    shipments?: [];
 }
 export interface PageInfoProps {
     page_size: number;

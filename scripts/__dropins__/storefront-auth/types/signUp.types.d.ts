@@ -19,27 +19,30 @@ export interface SignUpProps {
     inputsDefaultValueSet?: inputsDefaultValueSetProps[];
     fieldsConfigForApiVersion1?: any;
     apiVersion2?: boolean;
-    displayTermsOfUseCheckbox?: boolean;
-    displayNewsletterCheckbox?: boolean;
     isAutoSignInEnabled?: boolean;
     formSize?: 'default' | 'small';
     hideCloseBtnOnEmailConfirmation?: boolean;
     routeRedirectOnEmailConfirmationClose?: () => string;
     slots?: {
         SuccessNotification?: SlotProps<DefaultSlotContext>;
+        PrivacyPolicyConsent: SlotProps;
     };
     routeSignIn?: () => string;
     routeRedirectOnSignIn?: () => string;
     onErrorCallback?: (value?: unknown) => void;
     onSuccessCallback?: (value?: {
         userName: string;
+        userEmail: string;
         status: boolean;
     }) => Promise<void>;
 }
 export interface SignUpFormProps extends SignUpProps {
     setActiveComponent?: (componentName: activeComponentType) => void;
+    slot?: {
+        PrivacyPolicyConsent: SlotProps;
+    };
 }
-export interface UseSingUpFormProps extends Omit<SignUpFormProps, 'formSize' | 'displayTermsOfUseCheckbox' | 'displayNewsletterCheckbox' | 'inputsDefaultValueSet' | 'slots'> {
+export interface UseSingUpFormProps extends Omit<SignUpFormProps, 'formSize' | 'inputsDefaultValueSet' | 'slots'> {
     passwordConfigs?: {
         minLength: number;
         requiredCharacterClasses: number;

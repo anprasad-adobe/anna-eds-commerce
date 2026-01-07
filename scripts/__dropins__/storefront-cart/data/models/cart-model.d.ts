@@ -15,6 +15,29 @@
  * from Adobe.
  *******************************************************************/
 export interface CartModel {
+    totalGiftOptions: {
+        giftWrappingForItems: Price;
+        giftWrappingForItemsInclTax: Price;
+        giftWrappingForOrder: Price;
+        giftWrappingForOrderInclTax: Price;
+        printedCard: Price;
+        printedCardInclTax: Price;
+    };
+    cartGiftWrapping: {
+        uid: string;
+        design: string;
+        selected: boolean;
+        image: WrappingImage;
+        price: Price;
+    }[];
+    giftReceiptIncluded: boolean;
+    printedCardIncluded: boolean;
+    giftMessage: {
+        recipientName: string;
+        senderName: string;
+        message: string;
+    };
+    appliedGiftCards: AppliedGiftCardProps[];
     id: string;
     totalQuantity: number;
     totalUniqueItems: number;
@@ -48,6 +71,13 @@ export interface CartModel {
     hasFullyOutOfStockItems?: boolean;
     appliedCoupons?: Coupon[];
 }
+export interface AppliedGiftCardProps {
+    code: string;
+    appliedBalance: Price;
+    currentBalance: Price;
+    giftCardBalance: Price;
+    expirationDate: string;
+}
 interface TotalPriceModifier {
     amount: Price;
     label: string;
@@ -58,6 +88,25 @@ interface FixedProductTax {
     label: string;
 }
 export interface Item {
+    giftWrappingAvailable: boolean;
+    giftWrappingPrice: {
+        currency: string;
+        value: number;
+    };
+    productGiftWrapping: {
+        uid: string;
+        design: string;
+        selected: boolean;
+        image: WrappingImage;
+        price: Price;
+    }[];
+    giftMessage: {
+        recipientName: string;
+        senderName: string;
+        message: string;
+    };
+    priceTiers: PriceTier[];
+    giftMessageAvailable: boolean | null;
     taxedPrice: Price;
     rowTotal: Price;
     rowTotalIncludingTax: Price;
@@ -81,7 +130,11 @@ export interface Item {
     bundleOptions?: {
         [key: string]: any;
     };
+    bundleOptionsUIDs?: string[];
     selectedOptions?: {
+        [key: string]: any;
+    };
+    selectedOptionsUIDs?: {
         [key: string]: any;
     };
     customizableOptions?: {
@@ -102,6 +155,14 @@ export interface Item {
     savingsAmount?: Price;
     productAttributes?: Attribute[];
     fixedProductTaxes?: FixedProductTax[];
+}
+interface PriceTier {
+    quantity: number;
+    final_price: Price;
+    discount: {
+        amount_off: number;
+        percent_off: number;
+    };
 }
 interface ItemError {
     id: string;
@@ -134,6 +195,10 @@ interface Attribute {
 }
 interface Coupon {
     code: string;
+}
+export interface WrappingImage {
+    url: string;
+    design: string;
 }
 export {};
 //# sourceMappingURL=cart-model.d.ts.map

@@ -1,16 +1,22 @@
+import { Container, SlotProps } from '@dropins/tools/types/elsie/src/lib';
 import { HTMLAttributes } from 'preact/compat';
 
+export interface ContentSlotContext {
+    code: string;
+}
+export interface HandlePlaceOrderContext {
+    code: string;
+    cartId?: string | null;
+    quoteId?: string | null;
+}
 export interface PlaceOrderProps extends HTMLAttributes<HTMLDivElement> {
     disabled?: boolean;
+    active?: boolean;
     handleValidation?: () => boolean;
-    handlePlaceOrder: (ctx: PlaceOrderContext) => Promise<void>;
+    handlePlaceOrder: (ctx: HandlePlaceOrderContext) => Promise<void>;
+    slots?: {
+        Content?: SlotProps<ContentSlotContext>;
+    };
 }
-export interface PlaceOrderContext {
-    code: string;
-    cartId: string;
-}
-export declare const PlaceOrder: {
-    ({ hideOnEmptyCart, hideOnVirtualCart, ...props }: import('../../hocs/withConditionalRendering').ConditionalProps & PlaceOrderProps): import("preact/compat").JSX.Element;
-    displayName: string;
-};
+export declare const PlaceOrder: Container<PlaceOrderProps>;
 //# sourceMappingURL=PlaceOrder.d.ts.map

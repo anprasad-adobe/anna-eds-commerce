@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Adobe. All rights reserved.
+ * Copyright 2025 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You may obtain a copy
  * of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,15 +16,16 @@ function sampleRUM(checkpoint, data) {
   const timeShift = () => (window.performance ? window.performance.now() : Date.now() - window.hlx.rum.firstReadTime);
   try {
     window.hlx = window.hlx || {};
-    sampleRUM.enhance = () => {};
-    if (!window.hlx.rum) {
+    if (!window.hlx.rum || !window.hlx.rum.collector) {
+      sampleRUM.enhance = () => {};
       const param = new URLSearchParams(window.location.search).get('rum');
-      const weight = (window.SAMPLE_PAGEVIEWS_AT_RATE === 'high' && 10)
+      const weight = (param === 'on' && 1)
+        || (window.SAMPLE_PAGEVIEWS_AT_RATE === 'high' && 10)
         || (window.SAMPLE_PAGEVIEWS_AT_RATE === 'low' && 1000)
-        || (param === 'on' && 1)
         || 100;
-      const id = Math.random().toString(36).slice(-4);
-      const isSelected = param !== 'off' && Math.random() * weight < 1;
+      const id = (window.hlx.rum && window.hlx.rum.id) || crypto.randomUUID().slice(-9);
+      const isSelected = (window.hlx.rum && window.hlx.rum.isSelected)
+        || (param !== 'off' && Math.random() * weight < 1);
       // eslint-disable-next-line object-curly-newline, max-len
       window.hlx.rum = {
         weight,
@@ -69,7 +70,17 @@ function sampleRUM(checkpoint, data) {
           sampleRUM('error', errData);
         });
 
-        sampleRUM.baseURL = sampleRUM.baseURL || new URL(window.RUM_BASE || '/', new URL('https://rum.hlx.page'));
+        window.addEventListener('securitypolicyviolation', (e) => {
+          if (e.blockedURI.includes('helix-rum-enhancer') && e.disposition === 'enforce') {
+            const errData = {
+              source: 'csp',
+              target: e.blockedURI,
+            };
+            sampleRUM.sendPing('error', timeShift(), errData);
+          }
+        });
+
+        sampleRUM.baseURL = sampleRUM.baseURL || new URL(window.RUM_BASE || '/', new URL('https://ot.aem.live'));
         sampleRUM.collectBaseURL = sampleRUM.collectBaseURL || sampleRUM.baseURL;
         sampleRUM.sendPing = (ck, time, pingData = {}) => {
           // eslint-disable-next-line max-len, object-curly-newline
@@ -82,10 +93,10 @@ function sampleRUM(checkpoint, data) {
             ...pingData,
           });
           const urlParams = window.RUM_PARAMS
-            ? `?${new URLSearchParams(window.RUM_PARAMS).toString()}`
+            ? new URLSearchParams(window.RUM_PARAMS).toString() || ''
             : '';
           const { href: url, origin } = new URL(
-            `.rum/${weight}${urlParams}`,
+            `.rum/${weight}${urlParams ? `?${urlParams}` : ''}`,
             sampleRUM.collectBaseURL,
           );
           const body = origin === window.location.origin
@@ -148,11 +159,12 @@ function setup() {
 }
 
 /**
- * Auto initializiation.
+ * Auto initialization.
  */
 
 function init() {
   setup();
+  sampleRUM.collectBaseURL = window.origin;
   sampleRUM();
 }
 
@@ -439,6 +451,8 @@ function decorateIcon(span, prefix = '', alt = '') {
   img.src = `${window.hlx.codeBasePath}${prefix}/icons/${iconName}.svg`;
   img.alt = alt;
   img.loading = 'lazy';
+  img.width = 16;
+  img.height = 16;
   span.append(img);
 }
 
@@ -448,7 +462,7 @@ function decorateIcon(span, prefix = '', alt = '') {
  * @param {string} [prefix] prefix to be added to icon the src
  */
 function decorateIcons(element, prefix = '') {
-  const icons = [...element.querySelectorAll('span.icon')];
+  const icons = element.querySelectorAll('span.icon');
   icons.forEach((span) => {
     decorateIcon(span, prefix);
   });
@@ -494,50 +508,6 @@ function decorateSections(main) {
       sectionMeta.parentNode.remove();
     }
   });
-}
-
-/**
- * Gets placeholders object.
- * @param {string} [prefix] Location of placeholders
- * @returns {object} Window placeholders object
- */
-// eslint-disable-next-line import/prefer-default-export
-async function fetchPlaceholders(prefix = 'default') {
-  window.placeholders = window.placeholders || {};
-  if (!window.placeholders[prefix]) {
-    window.placeholders[prefix] = new Promise((resolve) => {
-      const url = getMetadata('placeholders') || `${prefix === 'default' ? '' : prefix}/placeholders.json`;
-      fetch(url)
-        .then((resp) => {
-          if (resp.ok) {
-            return resp.json();
-          }
-          return {};
-        })
-        .then((json) => {
-          const placeholders = {};
-          json.data.forEach(({ Key, Value }) => {
-            if (Key) {
-              const keys = Key.split('.');
-              const lastKey = keys.pop();
-              const target = keys.reduce((obj, key) => {
-                obj[key] = obj[key] || {};
-                return obj[key];
-              }, placeholders);
-              target[lastKey] = Value;
-            }
-          });
-          window.placeholders[prefix] = placeholders;
-          resolve(window.placeholders[prefix]);
-        })
-        .catch(() => {
-          // error loading placeholders
-          window.placeholders[prefix] = {};
-          resolve(window.placeholders[prefix]);
-        });
-    });
-  }
-  return window.placeholders[`${prefix}`];
 }
 
 /**
@@ -593,7 +563,7 @@ async function loadBlock(block) {
             }
           } catch (error) {
             // eslint-disable-next-line no-console
-            console.log(`failed to load module for ${blockName}`, error);
+            console.error(`failed to load module for ${blockName}`, error);
           }
           resolve();
         })();
@@ -601,7 +571,7 @@ async function loadBlock(block) {
       await Promise.all([cssLoaded, decorationComplete]);
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.log(`failed to load block ${blockName}`, error);
+      console.error(`failed to load block ${blockName}`, error);
     }
     block.dataset.blockStatus = 'loaded';
   }
@@ -722,7 +692,6 @@ export {
   decorateIcons,
   decorateSections,
   decorateTemplateAndTheme,
-  fetchPlaceholders,
   getMetadata,
   loadBlock,
   loadCSS,
