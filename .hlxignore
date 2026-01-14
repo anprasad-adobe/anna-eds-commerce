@@ -1,5 +1,4 @@
 .*
-*.md
 *.d.ts
 *.map
 karma.config.js
@@ -13,3 +12,8 @@ cypress/
 tools/picker/src/*
 tools/pdp-metadata/*
 plugins/experimentation/documentation/images/*
+# Ignore root-level markdown docs but allow block READMEs
+/README.md
+/CODE_OF_CONDUCT.md
+/CONTRIBUTING.md
+/block-readme-template.md
