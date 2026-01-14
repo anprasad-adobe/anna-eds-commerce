@@ -26,27 +26,27 @@ export default async function decorate(block) {
     {
       attr: 'data-yotpo-product-id',
       value: window.location.pathname.slice(
-        window.location.pathname.lastIndexOf("/") + 1,
+        window.location.pathname.lastIndexOf('/') + 1,
       ),
     },
     {
-      attr: "data-yotpo-name",
-      value: document.querySelector("div.pdp-header__title").innerText,
+      attr: 'data-yotpo-name',
+      value: document.querySelector('div.pdp-header__title').innerText,
     },
-    { attr: "data-yotpo-url", value: window.location.toString() },
+    { attr: 'data-yotpo-url', value: window.location.toString() },
     {
-      attr: "data-yotpo-image-url",
-      value: `https:${document.querySelector(".pdp-carousel__slide>img")?.getAttribute("src")}`,
+      attr: 'data-yotpo-image-url',
+      value: `https:${document.querySelector('.pdp-carousel__slide>img')?.getAttribute('src')}`,
     },
     {
-      attr: "data-yotpo-price",
-      value: document.querySelector(".dropin-price")?.innerText?.slice(1),
+      attr: 'data-yotpo-price',
+      value: document.querySelector('.dropin-price')?.innerText?.slice(1),
     },
-    { attr: "data-yotpo-currency", value: config.currency },
-    { attr: "class", value: "yotpo-widget-instance" },
+    { attr: 'data-yotpo-currency', value: config.currency },
+    { attr: 'class', value: 'yotpo-widget-instance' },
   ];
 
-  console.log("test", widgetConfig);
+  console.log('test', widgetConfig);
 
   const addLoaderScript = ({ loaderScriptUrl }) => {
     loadScript(loaderScriptUrl);
@@ -66,6 +66,6 @@ export default async function decorate(block) {
       addLoaderScript(config);
     })
     .catch((error) => {
-      console.error("Fetch error:", error);
+      console.error('Fetch error:', error);
     });
 }
