@@ -20,7 +20,7 @@ export default async function decorate(block) {
   const yotpoInstanceId = await getConfigValue('yotpo-instance-id');
 
   const widgetConfig = [
-    // To Do, To-Do. Remove hard-coded yotpo-instance-id. 
+    // To Do, To-Do. Remove hard-coded yotpo-instance-id.
     // I requested this be added to the Admin UI for Yotpo Config Editor.
     { attr: 'data-yotpo-instance-id', value: yotpoInstanceId },
     {
@@ -46,7 +46,7 @@ export default async function decorate(block) {
     { attr: 'class', value: 'yotpo-widget-instance' },
   ];
 
-  console.log('test', widgetConfig);
+  // console.log('test', widgetConfig);
 
   const addLoaderScript = ({ loaderScriptUrl }) => {
     loadScript(loaderScriptUrl);
