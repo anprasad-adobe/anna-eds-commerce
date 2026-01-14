@@ -4,6 +4,9 @@
       "commerce-core-endpoint": "https://na1.api.commerce.adobe.com/MJYY8FR72m6bTr2XMECx9N/graphql",
       "commerce-endpoint": "https://na1.api.commerce.adobe.com/MJYY8FR72m6bTr2XMECx9N/graphql",
       "commerce-assets-enabled": true,
+      "yotpo-config-url":"https://3117813-prasadyotporeview-stage.adobeioruntime.net/api/v1/web/aio-commerce-yotpo-app/yotpo-config",
+      "yotpo-instance-id":"1766424",
+      "commerce-base-currency-code":"USD",
       "headers": {
         "all": {
           "Store": "default"
@@ -23,7 +26,7 @@
         "store-code": "main_website_store",
         "store-id": 1,
         "store-name": "Main Website Store",
-        "store-url": "https://www.aemshop.net",
+        "store-url": "https://main--anna-eds-commerce--anprasad-adobe.aem.live/",
         "store-view-code": "default",
         "store-view-id": 1,
         "store-view-name": "Default Store View",
