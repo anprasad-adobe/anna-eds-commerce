@@ -1,10 +1,10 @@
-//import { getConfigValue } from "../../scripts/configs.js";
+// import { getConfigValue } from "../../scripts/configs.js";
 import { getConfigValue } from '@dropins/tools/lib/aem/configs.js';
-import { loadScript } from "../../scripts/aem.js";
+import { loadScript } from '../../scripts/aem.js';
 
 export default async function decorate(block) {
   const buildBlock = (configs) => {
-    const yotpoReviewsEl = document.createElement("div");
+    const yotpoReviewsEl = document.createElement('div');
     configs?.forEach((config) => {
       yotpoReviewsEl.setAttribute(config.attr, config.value);
     });
@@ -12,18 +12,19 @@ export default async function decorate(block) {
   };
 
   const config = {
-    baseUrl: "https://cdn-widgetsrepository.yotpo.com/v1/loader",
-    endpoint: await getConfigValue("yotpo-config-url"),
-    currency: await getConfigValue("commerce-base-currency-code"),
+    baseUrl: 'https://cdn-widgetsrepository.yotpo.com/v1/loader',
+    endpoint: await getConfigValue('yotpo-config-url'),
+    currency: await getConfigValue('commerce-base-currency-code'),
   };
 
-  const yotpoInstanceId = await getConfigValue("yotpo-instance-id");
+  const yotpoInstanceId = await getConfigValue('yotpo-instance-id');
 
   const widgetConfig = [
-    // To Do, To-Do. Remove hard-coded yotpo-instance-id. I requested this be added to the Admin UI for Yotpo Config Editor.
-    { attr: "data-yotpo-instance-id", value: yotpoInstanceId },
+    // To Do, To-Do. Remove hard-coded yotpo-instance-id. 
+    // I requested this be added to the Admin UI for Yotpo Config Editor.
+    { attr: 'data-yotpo-instance-id', value: yotpoInstanceId },
     {
-      attr: "data-yotpo-product-id",
+      attr: 'data-yotpo-product-id',
       value: window.location.pathname.slice(
         window.location.pathname.lastIndexOf("/") + 1,
       ),
