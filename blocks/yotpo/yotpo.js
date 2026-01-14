@@ -1,4 +1,5 @@
-import { getConfigValue } from "../../scripts/configs.js";
+//import { getConfigValue } from "../../scripts/configs.js";
+import { getConfigValue } from '@dropins/tools/lib/aem/configs.js';
 import { loadScript } from "../../scripts/aem.js";
 
 export default async function decorate(block) {
