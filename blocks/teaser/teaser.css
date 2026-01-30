@@ -1,0 +1,374 @@
+.teaser-container .teaser-wrapper {
+    max-width: 1200px;
+  padding: 0;
+}
+
+.teaser {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  align-items: stretch;
+  background-color: var(--background-color);
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.teaser-image {
+  line-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.teaser-image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.teaser-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.teaser-content {
+  padding: 48px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.teaser-title {
+  margin: 0 0 16px 0;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-color);
+  letter-spacing: -0.02em;
+}
+
+.teaser-description {
+  margin: 0 0 32px 0;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--color-neutral-700);
+  max-width: 500px;
+}
+
+.teaser-cta {
+  margin: 0;
+}
+
+.teaser-cta .button {
+  display: inline-block;
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  background-color: var(--color-neutral-800);
+  color: white;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.teaser-cta .button:hover {
+  background-color: var(--color-neutral-900);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.teaser-cta .button.primary {
+  background-color: var(--color-brand-700);
+}
+
+.teaser-cta .button.primary:hover {
+  background-color: var(--color-brand-800);
+}
+
+/* Desktop layout - image on left, content on right */
+@media (min-width: 768px) {
+  .teaser {
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+  }
+
+  .teaser-content {
+    padding: 64px 80px;
+  }
+
+  .teaser-title {
+    font-size: 56px;
+    margin-bottom: 24px;
+  }
+
+  .teaser-description {
+    font-size: 20px;
+    margin-bottom: 40px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .teaser {
+    grid-template-columns: 1.2fr 1fr;
+    min-height: 600px;
+  }
+
+  .teaser-title {
+    font-size: 64px;
+  }
+}
+
+/* Variant: Reverse layout - Content LEFT, Image RIGHT */
+/* Usage: Add (reverse) to block name in document, e.g., "teaser (reverse)" */
+.teaser.reverse {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .teaser.reverse {
+    grid-template-columns: 1fr 1.2fr;
+  }
+
+  /* Swap order: content first, then image */
+  .teaser.reverse .teaser-image {
+    order: 2;
+  }
+
+  .teaser.reverse .teaser-content {
+    order: 1;
+  }
+}
+
+@media (min-width: 1200px) {
+  .teaser.reverse {
+    grid-template-columns: 1fr 1.2fr;
+  }
+}
+
+/* Variant: Centered layout */
+.teaser.centered {
+  grid-template-columns: 1fr;
+  text-align: center;
+}
+
+.teaser.centered .teaser-image {
+  min-height: 400px;
+}
+
+.teaser.centered .teaser-content {
+  align-items: center;
+  padding: 48px 32px;
+}
+
+.teaser.centered .teaser-description {
+  max-width: 700px;
+}
+
+@media (min-width: 768px) {
+  .teaser.centered .teaser-content {
+    padding: 64px 80px;
+  }
+}
+
+/* Variant: Dark background with light text */
+/* Usage: Add (dark) to block name in document, e.g., "teaser (dark)" */
+.teaser.dark .teaser-content {
+  background-color: var(--color-neutral-900);
+  color: white;
+}
+
+.teaser.dark .teaser-title {
+  color: white;
+}
+
+.teaser.dark .teaser-description {
+  color: var(--color-neutral-200);
+}
+
+.teaser.dark .teaser-cta .button {
+  background-color: white;
+  color: var(--color-neutral-900);
+}
+
+.teaser.dark .teaser-cta .button:hover {
+  background-color: var(--color-neutral-100);
+  color: var(--color-neutral-900);
+}
+
+.teaser.dark .teaser-cta .button.primary {
+  background-color: var(--color-brand-500);
+  color: white;
+}
+
+.teaser.dark .teaser-cta .button.primary:hover {
+  background-color: var(--color-brand-400);
+}
+
+/* Variant: Colored background with custom styling */
+/* Usage: Add (colored) to block name in document, e.g., "teaser (colored)" */
+.teaser.colored .teaser-content {
+  background: linear-gradient(135deg, var(--color-brand-700) 0%, var(--color-brand-500) 100%);
+  color: white;
+}
+
+.teaser.colored .teaser-title {
+  color: white;
+}
+
+.teaser.colored .teaser-description {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.teaser.colored .teaser-cta .button {
+  background-color: white;
+  color: var(--color-brand-700);
+  font-weight: 700;
+}
+
+.teaser.colored .teaser-cta .button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.teaser.colored .teaser-cta .button.primary {
+  background-color: var(--color-neutral-900);
+  color: white;
+}
+
+.teaser.colored .teaser-cta .button.primary:hover {
+  background-color: var(--color-neutral-800);
+}
+
+/* Variant: Teal-Purple gradient background */
+/* Usage: Add (teal-purple) to block name in document, e.g., "teaser (teal-purple)" */
+.teaser.teal-purple .teaser-content {
+  background: linear-gradient(135deg, #005640 0%, #CCB3FA 100%);
+  color: white;
+}
+
+.teaser.teal-purple .teaser-title {
+  color: white;
+}
+
+.teaser.teal-purple .teaser-description {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.teaser.teal-purple .teaser-cta .button {
+  background-color: white;
+  color: #005640;
+  font-weight: 700;
+}
+
+.teaser.teal-purple .teaser-cta .button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.teaser.teal-purple .teaser-cta .button.primary {
+  background-color: #CCB3FA;
+  color: #005640;
+  font-weight: 700;
+}
+
+.teaser.teal-purple .teaser-cta .button.primary:hover {
+  background-color: #ddc8fb;
+}
+
+/* Variant: Solid Teal background */
+/* Usage: Add (teal) to block name in document, e.g., "teaser (teal)" */
+.teaser.teal .teaser-content {
+  background-color: #005640;
+  color: white;
+}
+
+.teaser.teal .teaser-title {
+  color: white;
+}
+
+.teaser.teal .teaser-description {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.teaser.teal .teaser-cta .button {
+  background-color: white;
+  color: #005640;
+  font-weight: 700;
+}
+
+.teaser.teal .teaser-cta .button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+}
+
+.teaser.teal .teaser-cta .button.primary {
+  background-color: #CCB3FA;
+  color: #005640;
+  font-weight: 700;
+}
+
+.teaser.teal .teaser-cta .button.primary:hover {
+  background-color: #ddc8fb;
+}
+
+/* Variant: Solid Purple background */
+/* Usage: Add (purple) to block name in document, e.g., "teaser (purple)" */
+.teaser.purple .teaser-content {
+  background-color: #CCB3FA;
+  color: #005640;
+}
+
+.teaser.purple .teaser-title {
+  color: #005640;
+}
+
+.teaser.purple .teaser-description {
+  color: #004534;
+}
+
+.teaser.purple .teaser-cta .button {
+  background-color: #005640;
+  color: white;
+  font-weight: 700;
+}
+
+.teaser.purple .teaser-cta .button:hover {
+  background-color: #004534;
+  transform: translateY(-2px);
+}
+
+.teaser.purple .teaser-cta .button.primary {
+  background-color: white;
+  color: #005640;
+  font-weight: 700;
+  border: 2px solid #005640;
+}
+
+.teaser.purple .teaser-cta .button.primary:hover {
+  background-color: #f5f5f5;
+}
+
+/* Variant: Light background with subtle styling */
+/* Usage: Add (light) to block name in document, e.g., "teaser (light)" */
+.teaser.light .teaser-content {
+  background-color: var(--color-neutral-100);
+}
+
+.teaser.light .teaser-title {
+  color: var(--color-neutral-900);
+}
+
+.teaser.light .teaser-description {
+  color: var(--color-neutral-700);
+}
+
+/* Variations can be combined - e.g., "teaser (reverse, dark)" or "teaser (centered, colored)" */
+/* The CSS classes stack naturally, so no additional rules needed */
